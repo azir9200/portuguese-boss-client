@@ -1,9 +1,19 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../Providers/AuthProviders";
+import Swal from 'sweetalert2'
+
+
 
 const UserLogin = () => {
   const { userLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+  console.log('state in the location login page', location.state)
+
+
   const handleLogin = (event) => {
     event.preventDefault();
 
@@ -14,10 +24,21 @@ const UserLogin = () => {
     userLogin(email, password)
       .then(result => {
         const user = result.user;
-        console.log(user);
+        console.log(user)
+        // alert('user login successfully !')
+        Swal.fire({
+          title: 'User Login Successful.',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        });
+        navigate(from, { replace: true });
       })
       .then(error => {
-        console.log(error)
+        console.log(error);
       })
   }
 
@@ -47,7 +68,7 @@ const UserLogin = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              {/* TODO: apply disabled for re captcha */}
+
               <input className="btn btn-primary" type="submit" value="Login" />
             </div>
 

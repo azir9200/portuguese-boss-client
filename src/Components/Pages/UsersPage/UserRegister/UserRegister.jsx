@@ -1,28 +1,37 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../Providers/AuthProviders";
 
 
-const UserLogin = () => {
 
-  const { createUser } = useContext(AuthContext)
+const UserRegister = () => {
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+  const { createUser, updateProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+
+  const handleRegister = (event) => {
+    event.preventDefault();
 
     const form = event.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    // const photo = form.photo.value;
-    console.log(name, email, password);
+    const photo = form.photo.value;
+    console.log(name, email, password, photo);
     createUser(email, password)
       .then(result => {
         const user = result.user;
-        console.log(user);
+        console.log(user)
+        alert('user login successfully !');
+
+        navigate('/');
+
       })
-      .then(error => {
-        console.log(error)
+
+      // reset();
+      .catch(error => {
+        console.log(error);
       })
   }
 
@@ -40,20 +49,21 @@ const UserLogin = () => {
               <label className="label">
                 <span className="label-text">Name</span>
               </label>
-              <input type="name" name="name" placeholder="email" className="input input-bordered" />
+              <input type="name" name="name" placeholder="name" className="input input-bordered" />
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input type="email" name="email" placeholder="email" className="input input-bordered" />
+              {/* {errors.email && <span className="text-red-500">Please write your email..</span>} */}
             </div>
 
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Photo URL</span>
               </label>
-              <input type="photo" name="name" placeholder="Photo URL" className="input input-bordered" />
+              <input type="photo" name="photo" placeholder="Photo URL" className="input input-bordered" />
             </div>
 
             <div className="form-control">
@@ -61,6 +71,8 @@ const UserLogin = () => {
                 <span className="label-text">Password</span>
               </label>
               <input type="password" name="password" placeholder="password" className="input input-bordered" />
+              {/* {errors.password && <span className="text-red-500">Password should be 6 to 12 letters </span>} */}
+
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
               </label>
@@ -79,4 +91,4 @@ const UserLogin = () => {
   );
 };
 
-export default UserLogin;
+export default UserRegister;

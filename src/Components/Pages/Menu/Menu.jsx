@@ -1,11 +1,11 @@
-// import { Helmet } from "react-helmet";
+
 import Cover from "../Shared/Cover/Cover";
 import menuImg from '../../../assets//menu/banner3.jpg'
 import dessImg from '../../../assets/menu/dessert-bg.jpeg'
 import soapImg from '../../../assets/menu/soup-bg.jpg'
 import saladImg from '../../../assets/menu/salad-bg.jpg'
 import pizzaImg from '../../../assets/menu/pizza-bg.jpg'
-// import PopularMenu from "../PopularMenu/PopularMenu";
+
 import useMenu from "../../../Hooks/UseMenu";
 import SectionTItle from "../../SectionTitle/SectionTItle";
 import MenuCategory from "../Shared/MenuCetegory/MenuCategory";
@@ -21,9 +21,7 @@ const Menu = () => {
 
   return (
     <div>
-      {/* <Helmet>
-        <title>Bistro Bite ||  Menu</title>
-      </Helmet> */}
+
       <Cover img={menuImg} title={"Our Menu"} ></Cover>
       <SectionTItle
         heading={"Today's Offer !"}

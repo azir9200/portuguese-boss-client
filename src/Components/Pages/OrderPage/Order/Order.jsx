@@ -2,8 +2,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import orderCover from '../../../../assets/shop/banner2.jpg'
 import Cover from '../../Shared/Cover/Cover';
-import { useState } from 'react';
-import useMenu from '../../../../Hooks/UseMenu';
+import { useEffect, useState } from 'react';
+// import useMenu from '../../../../Hooks/UseMenu';
 import OrderTab from '../OrderTab/OrderTab';
 import { useParams } from 'react-router';
 
@@ -12,7 +12,18 @@ const Order = () => {
   const { category } = useParams();
   const initialIndex = categories.indexOf(category);
   const [tabIndex, setTabIndex] = useState(initialIndex);
-  const [menus] = useMenu();
+  // const [menus] = useMenu();
+
+  const [menus, setMenus] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetch('http://localhost:5000/menu')
+      .then(res => res.json())
+      .then(data => {
+        setMenus(data);
+        setLoading(false);
+      });
+  }, [])
 
 
 
